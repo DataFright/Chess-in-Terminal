@@ -81,7 +81,7 @@ def player_two_turn():
 def player_one_turn():
     # >>> select piece to move or exit
     print("Player 1's turn")
-    piece_move = input("Enter the full tile name of the piece you want to move: ")
+    piece_move = input("Enter the name of the square the piece you want to move is on: ")
     piece_move = piece_move.upper()
     if piece_move == "QUIT" or piece_move == "EXIT":
         quit()
@@ -112,7 +112,7 @@ def player_one_turn():
         player_one_turn()
 
     # >>> select location to move piece to
-    piece_going = input("Enter the tile name of the tile you want to move the piece to: ")
+    piece_going = input("Enter the name of the square you want to move your piece to: ")
     piece_going = piece_going.upper()
     piece_going = [*piece_going]
 
@@ -177,9 +177,6 @@ def player_one_turn():
                     print("You can't move through pieces")
                     player_one_turn()
 
-
-
-    # todo check if move is valid, what piece is moving, and how far the piece can move
     # test()
     absolute_x = abs(x2 - x)
     absolute_y = abs(y2 - y)
@@ -189,44 +186,81 @@ def player_one_turn():
     # print(taken_piece_color)
 
     # >>> pawn logic
-    # if piece == "P":
-    #     pawn_number = board_pieces[x][y][1]
-    #     for i in pcs["P"]["first_move_taken_White"]:
-    #         if pawn_number == i and pcs["P"]["first_move_taken_White"][i] == False:
-    #             if absolute_x == 2 and absolute_y == 0:
-    #                     pcs["P"]["first_move_taken_White"][pawn_number] = True
-    #             elif absolute_x == 1 and absolute_y == 0:
-    #                 pcs["P"]["first_move_taken_White"][pawn_number] = True
-    #             else:
-    #                 print("Invalid move, the pawn cannot move like that")
-    #                 player_one_turn()
-    #         elif pawn_number == i and pcs["P"]["first_move_taken_White"][i] == True:
-    #             if absolute_x == 1 and absolute_y == 0:
-    #                 pass
-    #             elif absolute_x == 1 and absolute_y == 1:
-    #                 if taken_piece_color == "B":
-    #                     pass
-    #                 else:
-    #                     print("Invalid move, the pawn cannot move like that")
-    #                     player_one_turn()
-    #             else:
-    #                 print("Invalid move, the pawn cannot move like that, this this")
-    #                 player_one_turn()
+    if piece == "P":
+        pawn_number = board_pieces[x][y][1]
+        for i in pcs["P"]["first_move_taken_White"]:
+            if pawn_number == i and pcs["P"]["first_move_taken_White"][i] == False:
+                if absolute_x == 2 and absolute_y == 0:
+                        pcs["P"]["first_move_taken_White"][pawn_number] = True
+                elif absolute_x == 1 and absolute_y == 0:
+                    pcs["P"]["first_move_taken_White"][pawn_number] = True
+                else:
+                    print("Invalid move, the pawn cannot move like that")
+                    player_one_turn()
+            elif pawn_number == i and pcs["P"]["first_move_taken_White"][i] == True:
+                if absolute_x == 1 and absolute_y == 0:
+                    pass
+                elif absolute_x == 1 and absolute_y == 1:
+                    if taken_piece_color == "B":
+                        pass
+                    else:
+                        print("Invalid move, the pawn cannot move like that")
+                        player_one_turn()
+                else:
+                    print("Invalid move, the pawn cannot move like that, this this")
+                    player_one_turn()
 
     # >>> rook logic
-    # pass
+    if piece == "R":
+        if absolute_x == 0 and absolute_y != 0:
+            pass
+        elif absolute_x != 0 and absolute_y == 0:
+            pass
+        else:
+            print("Invalid move, the rook cannot move like that")
+            player_one_turn()
 
     # >>> knight logic
-    # pass
+    if piece == "N":
+        if absolute_x == 2 and absolute_y == 1:
+            pass
+        elif absolute_x == 1 and absolute_y == 2:
+            pass
+        else:
+            print("Invalid move, the knight cannot move like that")
+            player_one_turn()
 
     # >>> bishop logic
-    # pass
+    if piece == "B":
+        if absolute_x == absolute_y:
+            pass
+        else:
+            print("Invalid move, the bishop cannot move like that")
+            player_one_turn()
 
     # >>> queen logic
-    # pass
+    if piece == "Q":
+        if absolute_x == absolute_y:
+            pass
+        elif absolute_x == 0 and absolute_y != 0:
+            pass
+        elif absolute_x != 0 and absolute_y == 0:
+            pass
+        else:
+            print("Invalid move, the queen cannot move like that")
+            player_one_turn()
 
     # >>> king logic
-    # pass
+    if piece == "K":
+        if absolute_x == 1 and absolute_y == 1:
+            pass
+        elif absolute_x == 1 and absolute_y == 0:
+            pass
+        elif absolute_x == 0 and absolute_y == 1:
+            pass
+        else:
+            print("Invalid move, the king cannot move like that")
+            player_one_turn()
 
     # print(x2, y2)
 
@@ -235,14 +269,15 @@ def player_one_turn():
     # >>> tells you what piece you moved
     for i in pcs:
         if piece == i:
-            print(pcs[i]["name"], "on space", piece_space, "is moving to space", board_pieces[x2][y2][0:2])
+            print(pcs[i]["name"], "on square", piece_space, "is moving to square", board_pieces[x2][y2][0:2])
 
     # >>> tells you, if you are attacking, what piece you are attacking
     if "B" in taken_piece:
         for i in pcs:
             if taken_piece_char == i:
-                print("Black", pcs[i]["name"], "on space", taken_piece_space, "has been taken by", "White",
-                      pcs[piece]["name"])
+                # print("Black", pcs[i]["name"], "on space", taken_piece_space, "has been taken by", "White",
+                #       pcs[piece]["name"])
+                print("White", pcs[piece]["name"], "takes", "Black", pcs[i]["name"])
                 score["player_one"] += pcs[i]["value"]
 
     board_pieces[x2][y2] = board_pieces[x2][y2].replace(taken_piece_piece, piece_piece)
