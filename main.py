@@ -60,20 +60,227 @@ def print_board():
     for i in board_pieces:
         print(i)
 
+
 print_board()
 
 print("\n")
 
 memory_board = copy.deepcopy(board_pieces)
 
+
 def test():
     print("this is a test")
     print("test...")
     print("test complete")
 
+
+def player_two_cpu_turn():
+    pass
+
+
 def player_two_turn():
-    print("Player Two Turn")
+    # >>> select piece to move or exit
+    print("Player Two's turn")
+    piece_move = input("Enter the name of the square the piece you want to move is on: ")
+    piece_move = piece_move.upper()
+    if piece_move == "QUIT" or piece_move == "EXIT":
+        quit()
+    piece_move = [*piece_move]
+
+    # >>> checks logic for move, looking at X
+    for i in list_alphabet:
+        if piece_move[0] in list_alphabet and piece_move[1] in list_numbers:
+            if piece_move[0] == i:
+                x = list_alphabet.index(i)
+        else:
+            print("Invalid input")
+            player_two_turn()
+
+    # >>> checks logic for move, looking at Y
+    for i in list_numbers:
+        if piece_move[0] in list_alphabet and piece_move[1] in list_numbers:
+            if piece_move[1] == i:
+                y = list_numbers.index(i)
+        else:
+            print("Invalid input")
+            player_two_turn()
+
+    if "B" not in board_pieces[x][y]:
+        print("You can't move that piece")
+        player_two_turn()
+
+    # >>> select location to move piece to
+    piece_going = input("Enter the name of the square you want to move your piece to: ")
+    piece_going = piece_going.upper()
+    piece_going = [*piece_going]
+
+    # >>> checks logic for move, looking at X2
+    for i in list_alphabet:
+        if piece_going[0] in list_alphabet and piece_going[1] in list_numbers:
+            if piece_going[0] == i:
+                x2 = list_alphabet.index(i)
+        else:
+            print("Invalid input")
+            player_two_turn()
+
+    # >>> checks logic for move, looking at Y2
+    for i in list_numbers:
+        if piece_going[0] in list_alphabet and piece_going[1] in list_numbers:
+            if piece_going[1] == i:
+                y2 = list_numbers.index(i)
+        else:
+            print("Invalid input")
+            player_two_turn()
+
+    if "B" in board_pieces[x2][y2]:
+        print("You can't move onto your own piece")
+        player_two_turn()
+
+    piece = board_pieces[x][y]
+    piece_piece = piece[3:5]
+    piece = piece[-1]
+    piece_space = board_pieces[x][y]
+    piece_space = piece_space[0:2]
+
+    taken_piece = board_pieces[x2][y2]
+    taken_piece_color = taken_piece[3]
+    taken_piece_piece = taken_piece[3:5]
+    taken_piece_char = taken_piece[-1]
+    taken_piece_space = board_pieces[x2][y2]
+    taken_piece_space = taken_piece_space[0:2]
+
+    # >>> checks to see if jumping is allowed and if jumping is involved
+    if not pcs[piece]["jump"]:
+        amount_x = x2 - x
+        amount_y = y2 - y
+        if amount_x == amount_y:  # diagonal move
+            for i in range(1, amount_y):
+                if "-__" not in board_pieces[x + i][y + i]:
+                    print("You can't move through pieces")
+                    player_two_turn()
+        elif amount_x == 0:  # straight horizontal move
+            for i in range(1, amount_y):
+                if "-__" not in board_pieces[x][y + i]:
+                    print("You can't move through pieces")
+                    player_two_turn()
+        elif amount_y == 0:  # straight vertical move
+            for i in range(1, amount_x):
+                if "-__" not in board_pieces[x + i][y]:
+                    print("You can't move through pieces")
+                    player_two_turn()
+
+    absolute_x = abs(x2 - x)
+    absolute_y = abs(y2 - y)
+
+    # >>> pawn logic
+    if piece == "P":
+        pawn_number = board_pieces[x][y][1]
+        for i in pcs["P"]["first_move_taken_White"]:
+            if pawn_number == i and pcs["P"]["first_move_taken_Black"][i] == False:
+                if absolute_x == 2 and absolute_y == 0:
+                    pcs["P"]["first_move_taken_Black"][pawn_number] = True
+                elif absolute_x == 1 and absolute_y == 0:
+                    pcs["P"]["first_move_taken_Black"][pawn_number] = True
+                else:
+                    print("Invalid move, the pawn cannot move like that")
+                    player_two_turn()
+            elif pawn_number == i and pcs["P"]["first_move_taken_Black"][i] == True:
+                if absolute_x == 1 and absolute_y == 0:
+                    pass
+                elif absolute_x == 1 and absolute_y == 1:
+                    if taken_piece_color == "W":
+                        pass
+                    else:
+                        print("Invalid move, the pawn cannot move like that")
+                        player_two_turn()
+                else:
+                    print("Invalid move, the pawn cannot move like that")
+                    player_two_turn()
+
+    # >>> rook logic
+    if piece == "R":
+        if absolute_x == 0 and absolute_y != 0:
+            pass
+        elif absolute_x != 0 and absolute_y == 0:
+            pass
+        else:
+            print("Invalid move, the rook cannot move like that")
+            player_two_turn()
+
+    # >>> knight logic
+    if piece == "N":
+        if absolute_x == 2 and absolute_y == 1:
+            pass
+        elif absolute_x == 1 and absolute_y == 2:
+            pass
+        else:
+            print("Invalid move, the knight cannot move like that")
+            player_two_turn()
+
+    # >>> bishop logic
+    if piece == "B":
+        if absolute_x == absolute_y:
+            pass
+        else:
+            print("Invalid move, the bishop cannot move like that")
+            player_two_turn()
+
+    # >>> queen logic
+    if piece == "Q":
+        if absolute_x == absolute_y:
+            pass
+        elif absolute_x == 0 and absolute_y != 0:
+            pass
+        elif absolute_x != 0 and absolute_y == 0:
+            pass
+        else:
+            print("Invalid move, the queen cannot move like that")
+            player_two_turn()
+
+    # >>> king logic
+    if piece == "K":
+        if absolute_x == 1 and absolute_y == 1:
+            pass
+        elif absolute_x == 1 and absolute_y == 0:
+            pass
+        elif absolute_x == 0 and absolute_y == 1:
+            pass
+        else:
+            print("Invalid move, the king cannot move like that")
+            player_two_turn()
+
+    print("\n")
+
+    # >>> tells you what piece you moved
+    for i in pcs:
+        if piece == i:
+            print(pcs[i]["name"], "on square", piece_space, "is moving to square", board_pieces[x2][y2][0:2])
+
+    # >>> tells you, if you are attacking, what piece you are attacking
+    if "W" in taken_piece:
+        for i in pcs:
+            if taken_piece_char == i:
+                print("Black", pcs[piece]["name"], "takes", "White", pcs[i]["name"])
+                score["player_two"] += pcs[i]["value"]
+
+    board_pieces[x2][y2] = board_pieces[x2][y2].replace(taken_piece_piece, piece_piece)
+    board_pieces[x][y] = board[x][y]
+    board_pieces[x][y] += "-__"
+
+    print("\n")
     print_board()
+    print("\n")
+
+    if score["player_two"] >= 100:
+        print("You Win, Player Two! Congratulations!")
+        print("Player 2's score:", score["player_two"])
+        print("Player 1's score:", score["player_one"])
+        exit()
+    elif score["player_one"] >= 100:
+        print("Player one Wins!")
+        print("Player 1's score:", score["player_one"])
+        print("Player 2's score:", score["player_two"])
+        exit()
     print("\n")
     player_one_turn()
 
@@ -161,17 +368,17 @@ def player_one_turn():
         amount_x = x2 - x
         amount_y = y2 - y
         # print(amount_x, amount_y)
-        if amount_x == amount_y: # diagonal move
+        if amount_x == amount_y:  # diagonal move
             for i in range(1, amount_y):
                 if "-__" not in board_pieces[x + i][y + i]:
                     print("You can't move through pieces")
                     player_one_turn()
-        elif amount_x == 0: # straight horizontal move
+        elif amount_x == 0:  # straight horizontal move
             for i in range(1, amount_y):
                 if "-__" not in board_pieces[x][y + i]:
                     print("You can't move through pieces")
                     player_one_turn()
-        elif amount_y == 0: # straight vertical move
+        elif amount_y == 0:  # straight vertical move
             for i in range(1, amount_x):
                 if "-__" not in board_pieces[x + i][y]:
                     print("You can't move through pieces")
@@ -191,7 +398,7 @@ def player_one_turn():
         for i in pcs["P"]["first_move_taken_White"]:
             if pawn_number == i and pcs["P"]["first_move_taken_White"][i] == False:
                 if absolute_x == 2 and absolute_y == 0:
-                        pcs["P"]["first_move_taken_White"][pawn_number] = True
+                    pcs["P"]["first_move_taken_White"][pawn_number] = True
                 elif absolute_x == 1 and absolute_y == 0:
                     pcs["P"]["first_move_taken_White"][pawn_number] = True
                 else:
@@ -207,7 +414,7 @@ def player_one_turn():
                         print("Invalid move, the pawn cannot move like that")
                         player_one_turn()
                 else:
-                    print("Invalid move, the pawn cannot move like that, this this")
+                    print("Invalid move, the pawn cannot move like that")
                     player_one_turn()
 
     # >>> rook logic
@@ -289,14 +496,17 @@ def player_one_turn():
     print("\n")
     # print("Player 1's score:", score["player_one"])
     if score["player_one"] >= 100:
-        print("You Wins!")
+        print("You Win, Player One! Congratulations!")
+        print("Player 1's score:", score["player_one"])
+        print("Player 2's score:", score["player_two"])
         exit()
     elif score["player_two"] >= 100:
         print("Player Two Wins!")
+        print("Player 2's score:", score["player_two"])
+        print("Player 1's score:", score["player_one"])
         exit()
     print("\n")
     player_two_turn()
 
 
 player_one_turn()
-
