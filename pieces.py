@@ -84,3 +84,11 @@ en_passant_check = {
 castling_check = {
     "castling": True,
 }
+
+player_turn = {
+    "player_one": True,
+    "count": 0,
+    "player_one_check": False,
+    "player_two_check": False,
+    "memory": [[]],
+}

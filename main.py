@@ -3,6 +3,7 @@ from pieces import pieces as pcs
 from pieces import score
 from pieces import en_passant_check as passant
 from pieces import castling_check as castle
+from pieces import player_turn as turn
 
 board = [[]]
 list_alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -66,7 +67,6 @@ for i in range(8):
 # board_pieces[7][2] += "-__" #"B"
 # board_pieces[7][5] += "-__" #"B"
 
-
 def print_board():
     for i in board_pieces:
         print(i)
@@ -79,10 +79,16 @@ print("\n")
 memory_board = copy.deepcopy(board_pieces)
 
 
-def test():
-    print("this is a test")
-    print("test...")
-    print("test complete")
+def check_check():
+    if turn["player_one"]:  # <<< player ones turn
+        my_color = "W"
+        enemy_color = "B"
+        pass
+
+    else:  # <<< player twos turn
+        my_color = "B"
+        enemy_color = "W"
+        pass
 
 
 def player_two_cpu_turn():
@@ -90,6 +96,12 @@ def player_two_cpu_turn():
 
 
 def player_two_turn():
+    global board_pieces
+    turn["player_one"] = False
+    check_check()
+    if turn["player_two_check"]:
+        print("You are in Check!")
+    turn["memory"] = board_pieces.copy()
     # >>> select piece to move or exit
     print("Player Two's turn")
     piece_move = input("Enter the name of the square the piece you want to move is on: ")
@@ -392,6 +404,13 @@ def player_two_turn():
     if board_pieces[7][7] != "H8-BR":
         castle["castling"] = False
 
+    # >>> if in check
+    check_check()
+    if turn["player_two_check"]:
+        print("You are in Check!")
+        board_pieces = turn["memory"].copy()
+        player_two_turn()
+
     print("\n")
     print_board()
     print("\n")
@@ -400,16 +419,28 @@ def player_two_turn():
         print("You Win, Player Two! Congratulations!")
         print("Player 2's score:", score["player_two"])
         print("Player 1's score:", score["player_one"])
+        print("The game took,", turn["count"], "turns")
+        print("Thanks for playing!")
         exit()
     elif score["player_one"] >= 100:
         print("Player one Wins!")
         print("Player 1's score:", score["player_one"])
         print("Player 2's score:", score["player_two"])
+        print("The game took,", turn["count"], "turns")
+        print("Thanks for playing!")
         exit()
     player_one_turn()
 
 
 def player_one_turn():
+    global board_pieces
+    # turn["check"] = True
+    turn["player_one"] = True
+    turn["count"] += 1
+    check_check()
+    if turn["player_one_check"]:
+        print("You are in Check!")
+    turn["memory"] = board_pieces.copy()
     # >>> select piece to move or exit
     print("Player 1's turn")
     piece_move = input("Enter the name of the square the piece you want to move is on: ")
@@ -756,6 +787,15 @@ def player_one_turn():
     if board_pieces[0][7] != "A8-WR":
         castle["castling"] = False
 
+    # turn["check"] = True
+
+    # >>> if in check
+    check_check()
+    if turn["player_one_check"]:
+        print("You are in Check!")
+        board_pieces = turn["memory"].copy()
+        player_one_turn()
+
     print("\n")
     print_board()
     print("\n")
@@ -764,11 +804,15 @@ def player_one_turn():
         print("You Win, Player One! Congratulations!")
         print("Player 1's score:", score["player_one"])
         print("Player 2's score:", score["player_two"])
+        print("The game took,", turn["count"], "turns")
+        print("Thanks for playing!")
         exit()
     elif score["player_two"] >= 100:
         print("Player Two Wins!")
         print("Player 2's score:", score["player_two"])
         print("Player 1's score:", score["player_one"])
+        print("The game took,", turn["count"], "turns")
+        print("Thanks for playing!")
         exit()
     player_two_turn()
 
