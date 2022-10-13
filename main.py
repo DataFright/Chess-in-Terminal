@@ -57,6 +57,7 @@ for i in range(8):
     board_pieces[4][i] += "-__"
     board_pieces[5][i] += "-__"
 
+
 #     board_pieces[6][i] += "-__"
 #
 # board_pieces[7][1] += "-__" #"N"
@@ -217,7 +218,7 @@ def player_two_turn():
                     pass
                 elif passant["en_passant"] and absolute_x == 1 and absolute_y == 1:
                     if y2 == 0:
-                        if "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                        if "-__" in taken_piece and "WP" in board_pieces[x2 + 1][y2]:
                             passant["en_passant"] = False
                             print("nothing personal kid *en passant*")
                             board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
@@ -227,7 +228,7 @@ def player_two_turn():
                             print("Invalid move, the pawn cannot move like that")
                             player_one_turn()
                     elif y2 == 7:
-                        if "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                        if "-__" in taken_piece and "WP" in board_pieces[x2 + 1][y2]:
                             passant["en_passant"] = False
                             print("nothing personal kid *en passant*")
                             board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
@@ -236,7 +237,7 @@ def player_two_turn():
                         else:
                             print("Invalid move, the pawn cannot move like that")
                             player_one_turn()
-                    elif "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                    elif "-__" in taken_piece and "WP" in board_pieces[x2 + 1][y2]:
                         passant["en_passant"] = False
                         print("nothing personal kid *en passant*")
                         board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
@@ -260,11 +261,9 @@ def player_two_turn():
     if piece == "R":
         if absolute_x == 0 and absolute_y != 0:
             passant["en_passant"] = False
-            castle["castling"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
             passant["en_passant"] = False
-            castle["castling"] = False
             pass
         else:
             print("Invalid move, the rook cannot move like that")
@@ -322,16 +321,17 @@ def player_two_turn():
             pass
         elif absolute_x == 0 and absolute_y == 2:
             if board_pieces[x][y] == "H5-BK" and board_pieces[x2][y2] == "H7-__" and castle["castling"]:
-                if "-__" in board_pieces[x][y+1] and "BR" in board_pieces[x][y+3]:
-                    board_pieces[x][y+1] = board_pieces[x][y+3]
-                    board_pieces[x][y+3] = board[x][y+3]
-                    board_pieces[x][y+3] += "-__"
+                if "-__" in board_pieces[x][y + 1] and "BR" in board_pieces[x][y + 3]:
+                    board_pieces[x][y + 1] = board_pieces[x][y + 3]
+                    board_pieces[x][y + 3] = board[x][y + 3]
+                    board_pieces[x][y + 3] += "-__"
                     castle["castling"] = False
                 else:
                     print("Invalid move, the king cannot move like that")
                     player_one_turn()
             elif board_pieces[x][y] == "H5-BK" and board_pieces[x2][y2] == "H3-__" and castle["castling"]:
-                if "-__" in board_pieces[x][y - 1] and "-__" in board_pieces[x][y - 3] and "BR" in board_pieces[x][y-4]:
+                if "-__" in board_pieces[x][y - 1] and "-__" in board_pieces[x][y - 3] and "BR" in board_pieces[x][
+                    y - 4]:
                     board_pieces[x][y - 1] = board_pieces[x][y - 4]
                     board_pieces[x][y - 4] = board[x][y - 4]
                     board_pieces[x][y - 4] += "-__"
@@ -385,6 +385,12 @@ def player_two_turn():
             else:
                 board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
                 print("Invalid choice, your pawn has defaulted into a queen")
+
+    # >>> advanced rook logic // for castling
+    if board_pieces[0][7] != "H1-BR":
+        castle["castling"] = False
+    if board_pieces[7][7] != "H8-BR":
+        castle["castling"] = False
 
     print("\n")
     print_board()
@@ -556,7 +562,7 @@ def player_one_turn():
                     pass
                 elif passant["en_passant"] and absolute_x == 1 and absolute_y == 1:
                     if y2 == 0:
-                        if "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                        if "-__" in taken_piece and "BP" in board_pieces[x2 - 1][y2]:
                             passant["en_passant"] = False
                             print("nothing personal kid *en passant*")
                             board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
@@ -567,7 +573,7 @@ def player_one_turn():
                             # print("Test 3")
                             player_one_turn()
                     elif y2 == 7:
-                        if "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                        if "-__" in taken_piece and "BP" in board_pieces[x2 - 1][y2]:
                             passant["en_passant"] = False
                             print("nothing personal kid *en passant*")
                             board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
@@ -577,7 +583,7 @@ def player_one_turn():
                             print("Invalid move, the pawn cannot move like that")
                             # print("Test 4")
                             player_one_turn()
-                    elif "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                    elif "-__" in taken_piece and "BP" in board_pieces[x2 - 1][y2]:
                         passant["en_passant"] = False
                         print("nothing personal kid *en passant*")
                         board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
@@ -604,11 +610,9 @@ def player_one_turn():
     if piece == "R":
         if absolute_x == 0 and absolute_y != 0:
             passant["en_passant"] = False
-            castle["castling"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
             passant["en_passant"] = False
-            castle["castling"] = False
             pass
         else:
             print("Invalid move, the rook cannot move like that")
@@ -673,17 +677,18 @@ def player_one_turn():
             pass
         elif absolute_x == 0 and absolute_y == 2:
             if board_pieces[x][y] == "A4-WK" and board_pieces[x2][y2] == "A2-__" and castle["castling"]:
-                if "-__" in board_pieces[x][y-1] and "WR" in board_pieces[x][y-3]:
-                    board_pieces[x][y-1] = board_pieces[x][y-3]
-                    board_pieces[x][y-3] = board[x][y-3]
-                    board_pieces[x][y-3] += "-__"
+                if "-__" in board_pieces[x][y - 1] and "WR" in board_pieces[x][y - 3]:
+                    board_pieces[x][y - 1] = board_pieces[x][y - 3]
+                    board_pieces[x][y - 3] = board[x][y - 3]
+                    board_pieces[x][y - 3] += "-__"
                     castle["castling"] = False
                 else:
                     print("Invalid move, the king cannot move like that")
                     # print("Test 4")
                     player_one_turn()
             elif board_pieces[x][y] == "A4-WK" and board_pieces[x2][y2] == "A6-__" and castle["castling"]:
-                if "-__" in board_pieces[x][y + 1] and "-__" in board_pieces[x][y + 3] and "WR" in board_pieces[x][y+4]:
+                if "-__" in board_pieces[x][y + 1] and "-__" in board_pieces[x][y + 3] and "WR" in board_pieces[x][
+                    y + 4]:
                     board_pieces[x][y + 1] = board_pieces[x][y + 4]
                     board_pieces[x][y + 4] = board[x][y + 4]
                     board_pieces[x][y + 4] += "-__"
@@ -745,6 +750,12 @@ def player_one_turn():
                 board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
                 print("Invalid choice, your pawn has defaulted into a queen")
 
+    # >>> advanced rook logic // for castling
+    if board_pieces[0][0] != "A1-WR":
+        castle["castling"] = False
+    if board_pieces[0][7] != "A8-WR":
+        castle["castling"] = False
+
     print("\n")
     print_board()
     print("\n")
@@ -760,6 +771,7 @@ def player_one_turn():
         print("Player 1's score:", score["player_one"])
         exit()
     player_two_turn()
+
 
 # print(board_pieces[0][0])
 # print(board_pieces[0][1])
