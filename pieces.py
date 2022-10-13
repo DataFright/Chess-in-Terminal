@@ -80,3 +80,7 @@ score = {
 en_passant_check = {
     "en_passant": False,
 }
+
+castling_check = {
+    "castling": True,
+}

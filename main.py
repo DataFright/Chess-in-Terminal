@@ -2,6 +2,7 @@ import copy
 from pieces import pieces as pcs
 from pieces import score
 from pieces import en_passant_check as passant
+from pieces import castling_check as castle
 
 board = [[]]
 list_alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -42,9 +43,9 @@ board_pieces[7][2] += "B"
 board_pieces[7][5] += "B"
 
 board_pieces[0][3] += "K"
+board_pieces[7][4] += "K"
 board_pieces[0][4] += "Q"
 board_pieces[7][3] += "Q"
-board_pieces[7][4] += "K"
 
 for i in range(8):
     board_pieces[1][i] += "P"
@@ -55,6 +56,14 @@ for i in range(8):
     board_pieces[3][i] += "-__"
     board_pieces[4][i] += "-__"
     board_pieces[5][i] += "-__"
+
+#     board_pieces[6][i] += "-__"
+#
+# board_pieces[7][1] += "-__" #"N"
+# board_pieces[7][6] += "-__" #"N"
+# board_pieces[7][3] += "-__" #"Q"
+# board_pieces[7][2] += "-__" #"B"
+# board_pieces[7][5] += "-__" #"B"
 
 
 def print_board():
@@ -250,8 +259,12 @@ def player_two_turn():
     # >>> rook logic
     if piece == "R":
         if absolute_x == 0 and absolute_y != 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         else:
             print("Invalid move, the rook cannot move like that")
@@ -260,8 +273,10 @@ def player_two_turn():
     # >>> knight logic
     if piece == "N":
         if absolute_x == 2 and absolute_y == 1:
+            passant["en_passant"] = False
             pass
         elif absolute_x == 1 and absolute_y == 2:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the knight cannot move like that")
@@ -270,6 +285,7 @@ def player_two_turn():
     # >>> bishop logic
     if piece == "B":
         if absolute_x == absolute_y:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the bishop cannot move like that")
@@ -278,10 +294,13 @@ def player_two_turn():
     # >>> queen logic
     if piece == "Q":
         if absolute_x == absolute_y:
+            passant["en_passant"] = False
             pass
         elif absolute_x == 0 and absolute_y != 0:
+            passant["en_passant"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the queen cannot move like that")
@@ -290,11 +309,39 @@ def player_two_turn():
     # >>> king logic
     if piece == "K":
         if absolute_x == 1 and absolute_y == 1:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x == 1 and absolute_y == 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x == 0 and absolute_y == 1:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
+        elif absolute_x == 0 and absolute_y == 2:
+            if board_pieces[x][y] == "H5-BK" and board_pieces[x2][y2] == "H7-__" and castle["castling"]:
+                if "-__" in board_pieces[x][y+1] and "BR" in board_pieces[x][y+3]:
+                    board_pieces[x][y+1] = board_pieces[x][y+3]
+                    board_pieces[x][y+3] = board[x][y+3]
+                    board_pieces[x][y+3] += "-__"
+                    castle["castling"] = False
+                else:
+                    print("Invalid move, the king cannot move like that")
+                    player_one_turn()
+            elif board_pieces[x][y] == "H5-BK" and board_pieces[x2][y2] == "H3-__" and castle["castling"]:
+                if "-__" in board_pieces[x][y - 1] and "-__" in board_pieces[x][y - 3] and "BR" in board_pieces[x][y-4]:
+                    board_pieces[x][y - 1] = board_pieces[x][y - 4]
+                    board_pieces[x][y - 4] = board[x][y - 4]
+                    board_pieces[x][y - 4] += "-__"
+                    castle["castling"] = False
+                else:
+                    print("Invalid move, the king cannot move like that")
+                    player_one_turn()
+            else:
+                print("Invalid move, the king cannot move like that")
+                player_one_turn()
         else:
             print("Invalid move, the king cannot move like that")
             player_two_turn()
@@ -556,8 +603,12 @@ def player_one_turn():
     # >>> rook logic
     if piece == "R":
         if absolute_x == 0 and absolute_y != 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         else:
             print("Invalid move, the rook cannot move like that")
@@ -566,8 +617,10 @@ def player_one_turn():
     # >>> knight logic
     if piece == "N":
         if absolute_x == 2 and absolute_y == 1:
+            passant["en_passant"] = False
             pass
         elif absolute_x == 1 and absolute_y == 2:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the knight cannot move like that")
@@ -576,6 +629,7 @@ def player_one_turn():
     # >>> bishop logic
     if piece == "B":
         if absolute_x == absolute_y:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the bishop cannot move like that")
@@ -584,25 +638,67 @@ def player_one_turn():
     # >>> queen logic
     if piece == "Q":
         if absolute_x == absolute_y:
+            passant["en_passant"] = False
             pass
         elif absolute_x == 0 and absolute_y != 0:
+            passant["en_passant"] = False
             pass
         elif absolute_x != 0 and absolute_y == 0:
+            passant["en_passant"] = False
             pass
         else:
             print("Invalid move, the queen cannot move like that")
             player_one_turn()
 
+    # print("board_pieces[x][y]", board_pieces[x][y], "selected space")
+    # print("board_pieces[x2][y2]", board_pieces[x2][y2], "target space")
+    # print("castling", castle["castling"])
+    # print("check empty space", board_pieces[x][y-1])
+    # print("check rook position", board_pieces[x][y-3])
+    # print("piece", piece)
+
     # >>> king logic
     if piece == "K":
         if absolute_x == 1 and absolute_y == 1:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x == 1 and absolute_y == 0:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
         elif absolute_x == 0 and absolute_y == 1:
+            passant["en_passant"] = False
+            castle["castling"] = False
             pass
+        elif absolute_x == 0 and absolute_y == 2:
+            if board_pieces[x][y] == "A4-WK" and board_pieces[x2][y2] == "A2-__" and castle["castling"]:
+                if "-__" in board_pieces[x][y-1] and "WR" in board_pieces[x][y-3]:
+                    board_pieces[x][y-1] = board_pieces[x][y-3]
+                    board_pieces[x][y-3] = board[x][y-3]
+                    board_pieces[x][y-3] += "-__"
+                    castle["castling"] = False
+                else:
+                    print("Invalid move, the king cannot move like that")
+                    # print("Test 4")
+                    player_one_turn()
+            elif board_pieces[x][y] == "A4-WK" and board_pieces[x2][y2] == "A6-__" and castle["castling"]:
+                if "-__" in board_pieces[x][y + 1] and "-__" in board_pieces[x][y + 3] and "WR" in board_pieces[x][y+4]:
+                    board_pieces[x][y + 1] = board_pieces[x][y + 4]
+                    board_pieces[x][y + 4] = board[x][y + 4]
+                    board_pieces[x][y + 4] += "-__"
+                    castle["castling"] = False
+                else:
+                    print("Invalid move, the king cannot move like that")
+                    # print("Test 3")
+                    player_one_turn()
+            else:
+                print("Invalid move, the king cannot move like that")
+                # print("Test 2")
+                player_one_turn()
         else:
             print("Invalid move, the king cannot move like that")
+            # print("test 1")
             player_one_turn()
 
     # print(x2, y2)
@@ -665,5 +761,9 @@ def player_one_turn():
         exit()
     player_two_turn()
 
+# print(board_pieces[0][0])
+# print(board_pieces[0][1])
+# print(board_pieces[1][0])
+# print(board_pieces[1][1])
 
 player_one_turn()
