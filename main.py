@@ -1,6 +1,7 @@
 import copy
 from pieces import pieces as pcs
 from pieces import score
+from pieces import en_passant_check as passant
 
 board = [[]]
 list_alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -172,6 +173,13 @@ def player_two_turn():
     absolute_x = abs(x2 - x)
     absolute_y = abs(y2 - y)
 
+    # print("X", x, "y", y)
+    # print("X2", x2, "y2", y2)
+    # print("y2 + 1", y2 + 1)
+    # print(board_pieces[x2][y2 + 1])
+    # print("y2 - 1", y2 - 1)
+    # print(board_pieces[x2][y2 - 1])
+
     # >>> pawn logic
     if piece == "P":
         pawn_number = board_pieces[x][y][1]
@@ -179,16 +187,58 @@ def player_two_turn():
             if pawn_number == i and pcs["P"]["first_move_taken_Black"][i] == False:
                 if absolute_x == 2 and absolute_y == 0:
                     pcs["P"]["first_move_taken_Black"][pawn_number] = True
+                    if y2 == 0:
+                        if "WP" in board_pieces[x2][y2 + 1]:
+                            passant["en_passant"] = True
+                    elif y2 == 7:
+                        if "WP" in board_pieces[x2][y2 - 1]:
+                            passant["en_passant"] = True
+                    else:
+                        if "WP" in board_pieces[x2][y2 + 1] or "WP" in board_pieces[x2][y2 - 1]:
+                            passant["en_passant"] = True
                 elif absolute_x == 1 and absolute_y == 0:
                     pcs["P"]["first_move_taken_Black"][pawn_number] = True
+                    passant["en_passant"] = False
                 else:
                     print("Invalid move, the pawn cannot move like that")
                     player_two_turn()
             elif pawn_number == i and pcs["P"]["first_move_taken_Black"][i] == True:
                 if absolute_x == 1 and absolute_y == 0:
+                    passant["en_passant"] = False
                     pass
+                elif passant["en_passant"] and absolute_x == 1 and absolute_y == 1:
+                    if y2 == 0:
+                        if "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                            passant["en_passant"] = False
+                            print("nothing personal kid *en passant*")
+                            board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
+                            board_pieces[x2 + 1][y2] += "-__"
+                            pass
+                        else:
+                            print("Invalid move, the pawn cannot move like that")
+                            player_one_turn()
+                    elif y2 == 7:
+                        if "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                            passant["en_passant"] = False
+                            print("nothing personal kid *en passant*")
+                            board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
+                            board_pieces[x2 + 1][y2] += "-__"
+                            pass
+                        else:
+                            print("Invalid move, the pawn cannot move like that")
+                            player_one_turn()
+                    elif "-__" in taken_piece and "WP" in board_pieces[x2+1][y2]:
+                        passant["en_passant"] = False
+                        print("nothing personal kid *en passant*")
+                        board_pieces[x2 + 1][y2] = board[x2 + 1][y2]
+                        board_pieces[x2 + 1][y2] += "-__"
+                        pass
+                    else:
+                        print("Invalid move, the pawn cannot move like that")
+                        player_one_turn()
                 elif absolute_x == 1 and absolute_y == 1:
                     if taken_piece_color == "W":
+                        passant["en_passant"] = False
                         pass
                     else:
                         print("Invalid move, the pawn cannot move like that")
@@ -384,6 +434,8 @@ def player_one_turn():
     taken_piece_space = taken_piece_space[0:2]
     # print(taken_piece_space)
 
+    # print("X", x, "Y", y)
+
     # >>> checks to see if jumping is allowed and if jumping is involved
     if not pcs[piece]["jump"]:
         amount_x = x2 - x
@@ -413,6 +465,17 @@ def player_one_turn():
     # print("absolute y", absolute_y)
     # print(taken_piece_color)
 
+    # print("X", x, "y", y)
+    # print("X2", x2, "y2", y2)
+    # print("y2 + 1", y2 + 1)
+    # print(board_pieces[x2][y2 + 1])
+    # print("y2 - 1", y2 - 1)
+    # print(board_pieces[x2][y2 - 1])
+
+    # print("board_pieces[x2][y2]", board_pieces[x2][y2])
+    # print("board_pieces[x2-1][y2]", board_pieces[x2-1][y2])
+    # print("en passant", passant["en_passant"])
+
     # >>> pawn logic
     if piece == "P":
         pawn_number = board_pieces[x][y][1]
@@ -420,22 +483,74 @@ def player_one_turn():
             if pawn_number == i and pcs["P"]["first_move_taken_White"][i] == False:
                 if absolute_x == 2 and absolute_y == 0:
                     pcs["P"]["first_move_taken_White"][pawn_number] = True
+                    # passant["en_passant"] = False
+                    if y2 == 0:
+                        if "BP" in board_pieces[x2][y2 + 1]:
+                            passant["en_passant"] = True
+                            # print("en passant is now true")
+                    elif y2 == 7:
+                        if "BP" in board_pieces[x2][y2 - 1]:
+                            passant["en_passant"] = True
+                            # print("en passant is now true")
+                    else:
+                        if "BP" in board_pieces[x2][y2 + 1] or "BP" in board_pieces[x2][y2 - 1]:
+                            passant["en_passant"] = True
+                            # print("en passant is now true")
                 elif absolute_x == 1 and absolute_y == 0:
                     pcs["P"]["first_move_taken_White"][pawn_number] = True
+                    passant["en_passant"] = False
                 else:
                     print("Invalid move, the pawn cannot move like that")
+                    # print("Test 1")
                     player_one_turn()
             elif pawn_number == i and pcs["P"]["first_move_taken_White"][i] == True:
                 if absolute_x == 1 and absolute_y == 0:
+                    passant["en_passant"] = False
                     pass
-                elif absolute_x == 1 and absolute_y == 1:
-                    if taken_piece_color == "B":
+                elif passant["en_passant"] and absolute_x == 1 and absolute_y == 1:
+                    if y2 == 0:
+                        if "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                            passant["en_passant"] = False
+                            print("nothing personal kid *en passant*")
+                            board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
+                            board_pieces[x2 - 1][y2] += "-__"
+                            pass
+                        else:
+                            print("Invalid move, the pawn cannot move like that")
+                            # print("Test 3")
+                            player_one_turn()
+                    elif y2 == 7:
+                        if "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                            passant["en_passant"] = False
+                            print("nothing personal kid *en passant*")
+                            board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
+                            board_pieces[x2 - 1][y2] += "-__"
+                            pass
+                        else:
+                            print("Invalid move, the pawn cannot move like that")
+                            # print("Test 4")
+                            player_one_turn()
+                    elif "-__" in taken_piece and "BP" in board_pieces[x2-1][y2]:
+                        passant["en_passant"] = False
+                        print("nothing personal kid *en passant*")
+                        board_pieces[x2 - 1][y2] = board[x2 - 1][y2]
+                        board_pieces[x2 - 1][y2] += "-__"
                         pass
                     else:
                         print("Invalid move, the pawn cannot move like that")
+                        # print("Test 5")
+                        player_one_turn()
+                elif absolute_x == 1 and absolute_y == 1:
+                    if taken_piece_color == "B":
+                        passant["en_passant"] = False
+                        pass
+                    else:
+                        print("Invalid move, the pawn cannot move like that")
+                        # print("Test 2")
                         player_one_turn()
                 else:
                     print("Invalid move, the pawn cannot move like that")
+                    # print("Test 6")
                     player_one_turn()
 
     # >>> rook logic

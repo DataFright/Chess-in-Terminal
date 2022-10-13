@@ -76,3 +76,7 @@ score = {
     "player_one": 0,
     "player_two": 0,
 }
+
+en_passant_check = {
+    "en_passant": False,
+}
