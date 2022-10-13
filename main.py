@@ -267,6 +267,28 @@ def player_two_turn():
     board_pieces[x][y] = board[x][y]
     board_pieces[x][y] += "-__"
 
+    # >>> pawn logic expanded // pawn promotion
+    if piece == "P":
+        if x2 == 0:
+            print("You have reached the end of the board, you can now promote your pawn")
+            pawn_pp_choice = input("What piece would you like to promote your pawn to? (R, N, B, Q): ")
+            pawn_pp_choice = pawn_pp_choice.upper()
+            if pawn_pp_choice == "R":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "R")
+                print("Your pawn has been promoted to a rook")
+            elif pawn_pp_choice == "N":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "N")
+                print("Your pawn has been promoted to a knight")
+            elif pawn_pp_choice == "B":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "B")
+                print("Your pawn has been promoted to a bishop")
+            elif pawn_pp_choice == "Q":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
+                print("Your pawn has been promoted to a queen")
+            else:
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
+                print("Invalid choice, your pawn has defaulted into a queen")
+
     print("\n")
     print_board()
     print("\n")
@@ -281,7 +303,6 @@ def player_two_turn():
         print("Player 1's score:", score["player_one"])
         print("Player 2's score:", score["player_two"])
         exit()
-    print("\n")
     player_one_turn()
 
 
@@ -491,6 +512,28 @@ def player_one_turn():
     board_pieces[x][y] = board[x][y]
     board_pieces[x][y] += "-__"
 
+    # >>> pawn logic expanded // pawn promotion
+    if piece == "P":
+        if x2 == 7:
+            print("You have reached the end of the board, you can now promote your pawn")
+            pawn_pp_choice = input("What piece would you like to promote your pawn to? (R, N, B, Q): ")
+            pawn_pp_choice = pawn_pp_choice.upper()
+            if pawn_pp_choice == "R":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "R")
+                print("Your pawn has been promoted to a rook")
+            elif pawn_pp_choice == "N":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "N")
+                print("Your pawn has been promoted to a knight")
+            elif pawn_pp_choice == "B":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "B")
+                print("Your pawn has been promoted to a bishop")
+            elif pawn_pp_choice == "Q":
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
+                print("Your pawn has been promoted to a queen")
+            else:
+                board_pieces[x2][y2] = board_pieces[x2][y2].replace("P", "Q")
+                print("Invalid choice, your pawn has defaulted into a queen")
+
     print("\n")
     print_board()
     print("\n")
@@ -505,7 +548,6 @@ def player_one_turn():
         print("Player 2's score:", score["player_two"])
         print("Player 1's score:", score["player_one"])
         exit()
-    print("\n")
     player_two_turn()
 
 

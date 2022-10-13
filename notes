@@ -1,0 +1,24 @@
+need to add...
+
+    castling            <<< moving the rook and king at the same time
+            king moves two spaces towards the rook and the rook moves to the other side of the king, king cannot be in check
+
+    en passant      <<< capturing a pawn that just moved two spaces
+            if a pawn moves two spaces, the next turn you can capture it as if it only moved one space
+
+    pawn promotion  <<< pawn reaching the other side of the board, becoming a queen
+            pawn becomes a queen, rook, bishop, or knight after the pawn reaches the other side of the board
+
+    check           <<< king is in danger of being captured, thus you must block it to continue
+            king is in danger of being captured, thus you must dodge, dip, duck, dive, and dodge it to continue
+
+
+
+    need check figured out for castling
+
+
+
+    1: pawn promotion   <<< *completed*
+    2: en passant
+    3: check
+    4: castling
