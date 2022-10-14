@@ -87,7 +87,8 @@ def check_check():
         my_color = "W"
         my_king = "-WK"
         my_king_space = "A4-WK"
-        enemy_color = "B"
+        enemy_color = "-B"
+        enemy_piece_space = "G1-BP"
 
         for i in board_pieces:
             for h in i:
@@ -96,8 +97,42 @@ def check_check():
                     break
         # print(my_king_space, "test")
 
+        for i in board_pieces:
+            for h in i:
+                if enemy_color in h:
+                    # print(h)
+                    if h.endswith("R"):
+                        # print("Rook on", h[0:2])
+                        if h[0:1] == my_king_space[0:1]:
+                            print("Rook on same row as king")
+                            pass
+                        elif h[1:2] == my_king_space[1:2]:
+                            print("Rook on same column as king")
+                            pass
+                    elif h.endswith("N"):
+                        # print("Knight on", h[0:2])
+                        pass
+                    elif h.endswith("B"):
+                        # print("Bishop on", h[0:2])
+                        # for g in range(8):
+                        #     if h[g][g] == my_king_space:
+                        #         print("Bishop on", h[0:2], "can attack", my_king_space)
+                        pass
+                    elif h.endswith("Q"):
+                        # print("Queen on", h[0:2])
+                        if h[0:1] == my_king_space[0:1]:
+                            pass
+                        elif h[1:2] == my_king_space[1:2]:
+                            pass
+                    elif h.endswith("K"):
+                        # print("King on", h[0:2])
+                        pass
+                    elif h.endswith("P"):
+                        # print("Pawn on", h[0:2])
+                        pass
+
         pass
-        # for loop to find my king
+        # for loop to find my king  # <<< complete
         # jumping
         # pawn
         # queen
@@ -107,7 +142,7 @@ def check_check():
         # for loop to check all of the pieces attacks to see if they can check the king
 
     else:  # <<< player twos turn
-        my_color = "B"
+        my_color = "-B"
         my_king = "-BK"
         my_king_space = "H5-BK"
         enemy_color = "W"
