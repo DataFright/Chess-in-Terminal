@@ -67,6 +67,8 @@ for i in range(8):
 # board_pieces[7][2] += "-__" #"B"
 # board_pieces[7][5] += "-__" #"B"
 
+# board_pieces[3][3] += "-WK"
+
 def print_board():
     for i in board_pieces:
         print(i)
@@ -86,6 +88,13 @@ def check_check():
         my_king = "-WK"
         my_king_space = "A4-WK"
         enemy_color = "B"
+
+        for i in board_pieces:
+            for h in i:
+                if h.endswith(my_king):
+                    my_king_space = h
+                    break
+        # print(my_king_space, "test")
 
         pass
         # for loop to find my king
@@ -169,7 +178,7 @@ def player_two_turn():
             print("Invalid input")
             player_two_turn()
 
-    if "B" in board_pieces[x2][y2]:
+    if "-B" in board_pieces[x2][y2]:
         print("You can't move onto your own piece")
         player_two_turn()
 
