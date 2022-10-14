@@ -80,13 +80,27 @@ memory_board = copy.deepcopy(board_pieces)
 
 
 def check_check():
+    empty_space = "-__"
     if turn["player_one"]:  # <<< player ones turn
         my_color = "W"
+        my_king = "-WK"
+        my_king_space = "A4-WK"
         enemy_color = "B"
+
         pass
+        # for loop to find my king
+        # jumping
+        # pawn
+        # queen
+        # rook
+        # bishop
+        # knight
+        # for loop to check all of the pieces attacks to see if they can check the king
 
     else:  # <<< player twos turn
         my_color = "B"
+        my_king = "-BK"
+        my_king_space = "H5-BK"
         enemy_color = "W"
         pass
 
@@ -101,7 +115,7 @@ def player_two_turn():
     check_check()
     if turn["player_two_check"]:
         print("You are in Check!")
-    turn["memory"] = board_pieces.copy()
+    turn["memory"] = copy.deepcopy(board_pieces)
     # >>> select piece to move or exit
     print("Player Two's turn")
     piece_move = input("Enter the name of the square the piece you want to move is on: ")
@@ -238,7 +252,7 @@ def player_two_turn():
                             pass
                         else:
                             print("Invalid move, the pawn cannot move like that")
-                            player_one_turn()
+                            player_two_turn()
                     elif y2 == 7:
                         if "-__" in taken_piece and "WP" in board_pieces[x2 + 1][y2]:
                             passant["en_passant"] = False
@@ -248,7 +262,7 @@ def player_two_turn():
                             pass
                         else:
                             print("Invalid move, the pawn cannot move like that")
-                            player_one_turn()
+                            player_two_turn()
                     elif "-__" in taken_piece and "WP" in board_pieces[x2 + 1][y2]:
                         passant["en_passant"] = False
                         print("nothing personal kid *en passant*")
@@ -257,7 +271,7 @@ def player_two_turn():
                         pass
                     else:
                         print("Invalid move, the pawn cannot move like that")
-                        player_one_turn()
+                        player_two_turn()
                 elif absolute_x == 1 and absolute_y == 1:
                     if taken_piece_color == "W":
                         passant["en_passant"] = False
@@ -340,7 +354,7 @@ def player_two_turn():
                     castle["castling"] = False
                 else:
                     print("Invalid move, the king cannot move like that")
-                    player_one_turn()
+                    player_two_turn()
             elif board_pieces[x][y] == "H5-BK" and board_pieces[x2][y2] == "H3-__" and castle["castling"]:
                 if "-__" in board_pieces[x][y - 1] and "-__" in board_pieces[x][y - 3] and "BR" in board_pieces[x][
                     y - 4]:
@@ -350,10 +364,10 @@ def player_two_turn():
                     castle["castling"] = False
                 else:
                     print("Invalid move, the king cannot move like that")
-                    player_one_turn()
+                    player_two_turn()
             else:
                 print("Invalid move, the king cannot move like that")
-                player_one_turn()
+                player_two_turn()
         else:
             print("Invalid move, the king cannot move like that")
             player_two_turn()
@@ -408,7 +422,7 @@ def player_two_turn():
     check_check()
     if turn["player_two_check"]:
         print("You are in Check!")
-        board_pieces = turn["memory"].copy()
+        board_pieces = copy.deepcopy(turn["memory"])
         player_two_turn()
 
     print("\n")
@@ -440,7 +454,7 @@ def player_one_turn():
     check_check()
     if turn["player_one_check"]:
         print("You are in Check!")
-    turn["memory"] = board_pieces.copy()
+    turn["memory"] = copy.deepcopy(board_pieces)
     # >>> select piece to move or exit
     print("Player 1's turn")
     piece_move = input("Enter the name of the square the piece you want to move is on: ")
@@ -793,7 +807,7 @@ def player_one_turn():
     check_check()
     if turn["player_one_check"]:
         print("You are in Check!")
-        board_pieces = turn["memory"].copy()
+        board_pieces = copy.deepcopy(turn["memory"])
         player_one_turn()
 
     print("\n")
