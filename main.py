@@ -84,10 +84,10 @@ memory_board = copy.deepcopy(board_pieces)
 def check_check():
     empty_space = "-__"
     if turn["player_one"]:  # <<< player ones turn
-        my_color = "W"
+        my_color = "White"
         my_king = "-WK"
         my_king_space = "A4-WK"
-        enemy_color = "-B"
+        enemy_color = "Black"
         enemy_piece_space = "G1-BP"
 
         # finding my king
@@ -157,9 +157,13 @@ def check_check():
                                     break
                                 else:
                                     if y + g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the this")
                                     elif y - g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the that")
                         else:  # negative y
@@ -171,9 +175,13 @@ def check_check():
                                     break
                                 else:
                                     if y + g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the this")
                                     elif y - g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the that")
                     elif amount_y == 0:  # straight vertical move
@@ -189,9 +197,13 @@ def check_check():
                                     break
                                 else:
                                     if x + g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the this, add")
                                     elif x - g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the that, add")
                         else:  # negative x
@@ -203,9 +215,13 @@ def check_check():
                                     break
                                 else:
                                     if x + g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the this, minus")
                                     elif x - g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the that, minus")
 
@@ -220,10 +236,10 @@ def check_check():
         # knight
 
     else:  # <<< player twos turn
-        my_color = "-B"
+        my_color = "Black"
         my_king = "-BK"
         my_king_space = "H5-BK"
-        enemy_color = "W"
+        enemy_color = "White"
         enemy_piece_space = "B1-WP"
 
         # finding my king
@@ -285,8 +301,12 @@ def check_check():
                                     break
                                 else:
                                     if y + g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                                     elif y - g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                         else:  # negative y
                             for g in range(1, absolute_amount_y + 1):
@@ -295,8 +315,12 @@ def check_check():
                                     break
                                 else:
                                     if y + g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                                     elif y - g == y2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                     elif amount_y == 0:  # straight vertical move
                         if x < x2:  # positive x
@@ -306,8 +330,12 @@ def check_check():
                                     break
                                 else:
                                     if x + g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                                     elif x - g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                         else:  # negative x
                             for g in range(1, absolute_amount_x + 1):
@@ -316,8 +344,12 @@ def check_check():
                                     break
                                 else:
                                     if x + g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                                     elif x - g == x2:
+                                        print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
         pass
 
