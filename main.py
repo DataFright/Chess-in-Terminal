@@ -90,62 +90,235 @@ def check_check():
         enemy_color = "-B"
         enemy_piece_space = "G1-BP"
 
+        # finding my king
         for i in board_pieces:
             for h in i:
                 if h.endswith(my_king):
                     my_king_space = h
                     break
+
         # print(my_king_space, "test")
+
+        # >>> looking at X for king
+        for i in list_alphabet:
+            if my_king_space[0] in list_alphabet:
+                if my_king_space[0] == i:
+                    x2 = list_alphabet.index(i)
+
+        # >>> looking at Y for king
+        for i in list_numbers:
+            if my_king_space[1] in list_numbers:
+                if my_king_space[1] == i:
+                    y2 = list_numbers.index(i)
 
         for i in board_pieces:
             for h in i:
-                if enemy_color in h:
-                    # print(h)
-                    if h.endswith("R"):
-                        # print("Rook on", h[0:2])
-                        if h[0:1] == my_king_space[0:1]:
-                            print("Rook on same row as king")
-                            pass
-                        elif h[1:2] == my_king_space[1:2]:
-                            print("Rook on same column as king")
-                            pass
-                    elif h.endswith("N"):
-                        # print("Knight on", h[0:2])
-                        pass
-                    elif h.endswith("B"):
-                        # print("Bishop on", h[0:2])
-                        # for g in range(8):
-                        #     if h[g][g] == my_king_space:
-                        #         print("Bishop on", h[0:2], "can attack", my_king_space)
-                        pass
-                    elif h.endswith("Q"):
-                        # print("Queen on", h[0:2])
-                        if h[0:1] == my_king_space[0:1]:
-                            pass
-                        elif h[1:2] == my_king_space[1:2]:
-                            pass
-                    elif h.endswith("K"):
-                        # print("King on", h[0:2])
-                        pass
-                    elif h.endswith("P"):
-                        # print("Pawn on", h[0:2])
-                        pass
+                # >>> looking at X for enemy piece
+                for k in list_alphabet:
+                    if h[0] in list_alphabet:
+                        if h[0] == k:
+                            x = list_alphabet.index(k)
+
+                # >>> looking at Y for enemy piece
+                for k in list_numbers:
+                    if h[1] in list_numbers:
+                        if h[1] == k:
+                            y = list_numbers.index(k)
+
+                amount_x = x2 - x
+                amount_y = y2 - y
+                absolute_amount_x = abs(amount_x)
+                absolute_amount_y = abs(amount_y)
+
+                # print(x, y)
+                # print(x2, y2)
+                # print(amount_x, amount_y)
+                # print(absolute_amount_x, absolute_amount_y)
+
+                if "BP" in h:
+                    pass
+                elif "BN" in h:
+                    pass
+                elif "BB" in h:
+                    pass
+                elif "BQ" in h:
+                    pass
+                elif "BK" in h:
+                    pass
+                elif "BR" in h:
+                    if amount_x == 0:  # straight horizontal move
+                        # print("Rook on same row as king")
+                        if y < y2:  # positive y
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y + g] and not "-WK" in board_pieces[x][y + g] and not \
+                                        "-BR" in board_pieces[x][y + g]:
+                                    # print(x, y + g)
+                                    # print("You can't move through pieces 4", board_pieces[x][y + g])
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        turn["player_one_check"] = True
+                                        # print("the this")
+                                    elif y - g == y2:
+                                        turn["player_one_check"] = True
+                                        # print("the that")
+                        else:  # negative y
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y - g] and not "-WK" in board_pieces[x][y - g] and not \
+                                        "-BR" in board_pieces[x][y - g]:
+                                    # print(x, y - g)
+                                    # print("You can't move through pieces 3", board_pieces[x][y - g])
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        turn["player_one_check"] = True
+                                        # print("the this")
+                                    elif y - g == y2:
+                                        turn["player_one_check"] = True
+                                        # print("the that")
+                    elif amount_y == 0:  # straight vertical move
+                        # print("\n")
+                        # print("h", h, "i", i)
+                        # print("Rook on same column as king")
+                        if x < x2:  # positive x
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x + g][y] and not "-WK" in board_pieces[x + g][y] and not \
+                                        "-BR" in board_pieces[x + g][y]:
+                                    # print(x + g, y)
+                                    # print("You can't move through pieces 2", board_pieces[x + g][y])
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        turn["player_one_check"] = True
+                                        # print("the this, add")
+                                    elif x - g == x2:
+                                        turn["player_one_check"] = True
+                                        # print("the that, add")
+                        else:  # negative x
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x - g][y] and not "-WK" in board_pieces[x - g][y] and not \
+                                        "-BR" in board_pieces[x - g][y]:
+                                    # print(x - g, y)
+                                    # print("You can't move through pieces 1", board_pieces[x - g][y])
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        turn["player_one_check"] = True
+                                        # print("the this, minus")
+                                    elif x - g == x2:
+                                        turn["player_one_check"] = True
+                                        # print("the that, minus")
 
         pass
-        # for loop to find my king  # <<< complete
+        # for loop to find my king          # <<< complete
+        # for loop to find enemy pieces     # <<< complete
         # jumping
         # pawn
         # queen
-        # rook
+        # rook                              # <<< complete
         # bishop
         # knight
-        # for loop to check all of the pieces attacks to see if they can check the king
 
     else:  # <<< player twos turn
         my_color = "-B"
         my_king = "-BK"
         my_king_space = "H5-BK"
         enemy_color = "W"
+        enemy_piece_space = "B1-WP"
+
+        # finding my king
+        for i in board_pieces:
+            for h in i:
+                if h.endswith(my_king):
+                    my_king_space = h
+                    break
+
+        # print(my_king_space, "test")
+
+        # >>> looking at X for king
+        for i in list_alphabet:
+            if my_king_space[0] in list_alphabet:
+                if my_king_space[0] == i:
+                    x2 = list_alphabet.index(i)
+
+        # >>> looking at Y for king
+        for i in list_numbers:
+            if my_king_space[1] in list_numbers:
+                if my_king_space[1] == i:
+                    y2 = list_numbers.index(i)
+
+        for i in board_pieces:
+            for h in i:
+                # >>> looking at X for enemy piece
+                for k in list_alphabet:
+                    if h[0] in list_alphabet:
+                        if h[0] == k:
+                            x = list_alphabet.index(k)
+
+                # >>> looking at Y for enemy piece
+                for k in list_numbers:
+                    if h[1] in list_numbers:
+                        if h[1] == k:
+                            y = list_numbers.index(k)
+
+                amount_x = x2 - x
+                amount_y = y2 - y
+                absolute_amount_x = abs(amount_x)
+                absolute_amount_y = abs(amount_y)
+
+                if "WP" in h:
+                    pass
+                elif "WN" in h:
+                    pass
+                elif "WB" in h:
+                    pass
+                elif "WQ" in h:
+                    pass
+                elif "WK" in h:
+                    pass
+                elif "WR" in h:
+                    if amount_x == 0:  # straight horizontal move
+                        if y < y2:  # positive y
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y + g] and not "-BK" in board_pieces[x][y + g] and not \
+                                        "-WR" in board_pieces[x][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        turn["player_two_check"] = True
+                                    elif y - g == y2:
+                                        turn["player_two_check"] = True
+                        else:  # negative y
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y - g] and not "-BK" in board_pieces[x][y - g] and not \
+                                        "-WR" in board_pieces[x][y - g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        turn["player_two_check"] = True
+                                    elif y - g == y2:
+                                        turn["player_two_check"] = True
+                    elif amount_y == 0:  # straight vertical move
+                        if x < x2:  # positive x
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x + g][y] and not "-BK" in board_pieces[x + g][y] and not \
+                                        "-WR" in board_pieces[x + g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        turn["player_two_check"] = True
+                                    elif x - g == x2:
+                                        turn["player_two_check"] = True
+                        else:  # negative x
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x - g][y] and not "-BK" in board_pieces[x - g][y] and not \
+                                        "-WR" in board_pieces[x - g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        turn["player_two_check"] = True
+                                    elif x - g == x2:
+                                        turn["player_two_check"] = True
         pass
 
 
@@ -232,23 +405,41 @@ def player_two_turn():
 
     # >>> checks to see if jumping is allowed and if jumping is involved
     if not pcs[piece]["jump"]:
-        amount_x = x2 - x
-        amount_y = y2 - y
+        amount_x = abs(x2 - x)
+        amount_y = abs(y2 - y)
         if amount_x == amount_y:  # diagonal move
-            for i in range(1, amount_y):
-                if "-__" not in board_pieces[x + i][y + i]:
-                    print("You can't move through pieces")
-                    player_two_turn()
+            if x2 > x and y2 > y:  # positive x and y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x + i][y + i]:
+                        print("You can't move through pieces")
+                        player_two_turn()
+            else:  # negative x and y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x - i][y - i]:
+                        print("You can't move through pieces")
+                        player_two_turn()
         elif amount_x == 0:  # straight horizontal move
-            for i in range(1, amount_y):
-                if "-__" not in board_pieces[x][y + i]:
-                    print("You can't move through pieces")
-                    player_two_turn()
+            if y2 > y:  # positive y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x][y + i]:
+                        print("You can't move through pieces")
+                        player_two_turn()
+            else:  # negative y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x][y - i]:
+                        print("You can't move through pieces")
+                        player_two_turn()
         elif amount_y == 0:  # straight vertical move
-            for i in range(1, amount_x):
-                if "-__" not in board_pieces[x + i][y]:
-                    print("You can't move through pieces")
-                    player_two_turn()
+            if x2 > x:  # positive x
+                for i in range(1, amount_x + 1):
+                    if "-__" not in board_pieces[x + i][y]:
+                        print("You can't move through pieces")
+                        player_two_turn()
+            else:  # negative x
+                for i in range(1, amount_x + 1):
+                    if "-__" not in board_pieces[x - i][y]:
+                        print("You can't move through pieces")
+                        player_two_turn()
 
     absolute_x = abs(x2 - x)
     absolute_y = abs(y2 - y)
@@ -580,24 +771,41 @@ def player_one_turn():
 
     # >>> checks to see if jumping is allowed and if jumping is involved
     if not pcs[piece]["jump"]:
-        amount_x = x2 - x
-        amount_y = y2 - y
-        # print(amount_x, amount_y)
+        amount_x = abs(x2 - x)
+        amount_y = abs(y2 - y)
         if amount_x == amount_y:  # diagonal move
-            for i in range(1, amount_y):
-                if "-__" not in board_pieces[x + i][y + i]:
-                    print("You can't move through pieces")
-                    player_one_turn()
+            if x2 > x and y2 > y:  # positive x and y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x + i][y + i]:
+                        print("You can't move through pieces")
+                        player_one_turn()
+            else:  # negative x and y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x - i][y - i]:
+                        print("You can't move through pieces")
+                        player_one_turn()
         elif amount_x == 0:  # straight horizontal move
-            for i in range(1, amount_y):
-                if "-__" not in board_pieces[x][y + i]:
-                    print("You can't move through pieces")
-                    player_one_turn()
+            if y2 > y:  # positive y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x][y + i]:
+                        print("You can't move through pieces")
+                        player_one_turn()
+            else:  # negative y
+                for i in range(1, amount_y + 1):
+                    if "-__" not in board_pieces[x][y - i]:
+                        print("You can't move through pieces")
+                        player_one_turn()
         elif amount_y == 0:  # straight vertical move
-            for i in range(1, amount_x):
-                if "-__" not in board_pieces[x + i][y]:
-                    print("You can't move through pieces")
-                    player_one_turn()
+            if x2 > x:  # positive x
+                for i in range(1, amount_x + 1):
+                    if "-__" not in board_pieces[x + i][y]:
+                        print("You can't move through pieces")
+                        player_one_turn()
+            else:  # negative x
+                for i in range(1, amount_x + 1):
+                    if "-__" not in board_pieces[x - i][y]:
+                        print("You can't move through pieces")
+                        player_one_turn()
 
     # test()
     absolute_x = abs(x2 - x)
