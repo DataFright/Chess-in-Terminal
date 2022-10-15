@@ -140,7 +140,65 @@ def check_check():
                 elif "BN" in h:
                     pass
                 elif "BB" in h:
-                    pass
+                    if absolute_amount_x == absolute_amount_y:  # diagonal move
+                        if y < y2 and x < x2:  # top left
+                            # print("the this add x add y")
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y + g] and not "-WK" in board_pieces[x + g][
+                                    y + g] and not \
+                                        "-BB" in board_pieces[x + g][y + g]:
+                                    # print(x, y + g)
+                                    # print("You can't move through pieces 4", board_pieces[x + g][y + g])
+                                    break
+                                else:
+                                    if y + g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                        # print("the this")
+                        elif y < y2 and x > x2:  # bottom left
+                            # print("the this sub x add y")
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y + g] and not "-WK" in board_pieces[x - g][
+                                    y + g] and not \
+                                        "-BB" in board_pieces[x - g][y + g]:
+                                    # print(x, y + g)
+                                    # print("You can't move through pieces 4", board_pieces[x - g][y + g])
+                                    break
+                                else:
+                                    if y + g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                        # print("the this")
+                        elif y > y2 and x < x2:  # top right
+                            # print("the this add x sub y")
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y - g] and not "-WK" in board_pieces[x + g][
+                                    y - g] and not \
+                                        "-BB" in board_pieces[x + g][y - g]:
+                                    # print("You can't move through pieces 4", board_pieces[x + g][y - g])
+                                    break
+                                else:
+                                    if y - g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                        # print("the this")
+                        elif y > y2 and x > x2:  # bottom right
+                            # print("the this minus x minus y")
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y - g] and not "-WK" in board_pieces[x - g][
+                                    y - g] and not \
+                                        "-BB" in board_pieces[x - g][y - g]:
+                                    # print("You can't move through pieces 4", board_pieces[x - g][y - g])
+                                    break
+                                else:
+                                    if y - g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                        # print("the this")
                 elif "BQ" in h:
                     pass
                 elif "BK" in h:
@@ -287,7 +345,51 @@ def check_check():
                 elif "WN" in h:
                     pass
                 elif "WB" in h:
-                    pass
+                    if absolute_amount_x == absolute_amount_y:  # diagonal move
+                        if y < y2 and x < x2:  # top left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y + g] and not "-BK" in board_pieces[x + g][
+                                    y + g] and not \
+                                        "-WB" in board_pieces[x + g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y < y2 and x > x2:  # bottom left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y + g] and not "-BK" in board_pieces[x - g][
+                                    y + g] and not \
+                                        "-WB" in board_pieces[x - g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y > y2 and x < x2:  # top right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y - g] and not "-BK" in board_pieces[x + g][
+                                    y - g] and not \
+                                        "-WB" in board_pieces[x + g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y > y2 and x > x2:  # bottom right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y - g] and not "-BK" in board_pieces[x - g][
+                                    y - g] and not \
+                                        "-WB" in board_pieces[x - g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Bishop on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
                 elif "WQ" in h:
                     pass
                 elif "WK" in h:
