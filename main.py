@@ -200,7 +200,109 @@ def check_check():
                                         turn["player_one_check"] = True
                                         # print("the this")
                 elif "BQ" in h:
-                    pass
+                    if amount_x == 0:  # straight horizontal move
+                        if y < y2:
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y + g] and not "-WK" in board_pieces[x][y + g] and not \
+                                        "-BQ" in board_pieces[x][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                    elif y - g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                        else:
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y - g] and not "-WK" in board_pieces[x][y - g] and not \
+                                        "-BQ" in board_pieces[x][y - g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                    elif y - g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                    elif amount_y == 0:  # straight vertical move
+                        if x < x2:
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x + g][y] and not "-WK" in board_pieces[x + g][y] and not \
+                                        "-BQ" in board_pieces[x + g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                    elif x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                        else:
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x - g][y] and not "-WK" in board_pieces[x - g][y] and not \
+                                        "-BQ" in board_pieces[x - g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                                    elif x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                    elif absolute_amount_x == absolute_amount_y:  # diagonal move
+                        if y < y2 and x < x2:  # top left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y + g] and not "-WK" in board_pieces[x + g][
+                                    y + g] and not \
+                                        "-BQ" in board_pieces[x + g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                        elif y < y2 and x > x2:  # bottom left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y + g] and not "-WK" in board_pieces[x - g][
+                                    y + g] and not \
+                                        "-BQ" in board_pieces[x - g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                        elif y > y2 and x < x2:  # top right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y - g] and not "-WK" in board_pieces[x + g][
+                                    y - g] and not \
+                                        "-BQ" in board_pieces[x + g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
+                        elif y > y2 and x > x2:  # bottom right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y - g] and not "-WK" in board_pieces[x - g][
+                                    y - g] and not \
+                                        "-BQ" in board_pieces[x - g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_one_check"] = True
                 elif "BK" in h:
                     pass
                 elif "BR" in h:
@@ -391,7 +493,109 @@ def check_check():
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                 elif "WQ" in h:
-                    pass
+                    if amount_x == 0:  # straight horizontal move
+                        if y < y2:
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y + g] and not "-BK" in board_pieces[x][y + g] and not \
+                                        "-WQ" in board_pieces[x][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                                    elif y - g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        else:
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x][y - g] and not "-BK" in board_pieces[x][y - g] and not \
+                                        "-WQ" in board_pieces[x][y - g]:
+                                    break
+                                else:
+                                    if y + g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                                    elif y - g == y2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                    elif amount_y == 0:  # straight vertical move
+                        if x < x2:
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x + g][y] and not "-BK" in board_pieces[x + g][y] and not \
+                                        "-WQ" in board_pieces[x + g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                                    elif x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        else:
+                            for g in range(1, absolute_amount_x + 1):
+                                if "-__" not in board_pieces[x - g][y] and not "-BK" in board_pieces[x - g][y] and not \
+                                        "-WQ" in board_pieces[x - g][y]:
+                                    break
+                                else:
+                                    if x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                                    elif x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                    elif absolute_amount_x == absolute_amount_y:  # diagonal move
+                        if y < y2 and x < x2:  # top left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y + g] and not "-BK" in board_pieces[x + g][
+                                    y + g] and not \
+                                        "-WQ" in board_pieces[x + g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y < y2 and x > x2:  # bottom left
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y + g] and not "-BK" in board_pieces[x - g][
+                                    y + g] and not \
+                                        "-WQ" in board_pieces[x - g][y + g]:
+                                    break
+                                else:
+                                    if y + g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y > y2 and x < x2:  # top right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x + g][y - g] and not "-BK" in board_pieces[x + g][
+                                    y - g] and not \
+                                        "-WQ" in board_pieces[x + g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x + g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
+                        elif y > y2 and x > x2:  # bottom right
+                            for g in range(1, absolute_amount_y + 1):
+                                if "-__" not in board_pieces[x - g][y - g] and not "-BK" in board_pieces[x - g][
+                                    y - g] and not \
+                                        "-WQ" in board_pieces[x - g][y - g]:
+                                    break
+                                else:
+                                    if y - g == y2 and x - g == x2:
+                                        print(f"The {enemy_color} Queen on {h[0:2]} puts the {my_color} King on "
+                                              f"{my_king_space[0:2]} in Check")
+                                        turn["player_two_check"] = True
                 elif "WK" in h:
                     pass
                 elif "WR" in h:
