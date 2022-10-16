@@ -136,7 +136,11 @@ def check_check():
                 # print(absolute_amount_x, absolute_amount_y)
 
                 if "BP" in h:
-                    pass
+                    if amount_x == -1 and absolute_amount_y == 1:
+                        # if amount_x == 1 and absolute_amount_y == 1:      // for player two
+                        print(f"The {enemy_color} Pawn on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
                 elif "BN" in h:
                     if absolute_amount_x == 1 and absolute_amount_y == 2:
                         print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
@@ -395,12 +399,13 @@ def check_check():
         pass
         # for loop to find my king          # <<< complete
         # for loop to find enemy pieces     # <<< complete
-        # jumping
-        # pawn
-        # queen
+        # jumping                           # <<< complete
+        # pawn                              # <<< complete
+        # queen                             # <<< complete
         # rook                              # <<< complete
-        # bishop
-        # knight
+        # bishop                            # <<< complete
+        # knight                            # <<< complete
+        # king
 
     else:  # <<< player twos turn
         my_color = "Black"
@@ -450,7 +455,10 @@ def check_check():
                 absolute_amount_y = abs(amount_y)
 
                 if "WP" in h:
-                    pass
+                    if amount_x == 1 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} Pawn on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
                 elif "WN" in h:
                     if absolute_amount_x == 1 and absolute_amount_y == 2:
                         print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
