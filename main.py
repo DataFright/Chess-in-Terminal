@@ -691,7 +691,6 @@ def check_check():
                                         turn["player_two_check"] = True
 
 
-
 def player_two_cpu_turn():
     pass
 
