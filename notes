@@ -22,4 +22,17 @@ need to add...
     2: en passant       <<< *completed*
     3: castling         <<< *completed*
     4: check            <<< *completed*
-    5: checkmate
+        pawns        <<< *completed*
+        rooks        <<< *completed*
+        bishops      <<< *completed*
+        knights      <<< *completed*
+        queen        <<< *completed*
+        king         <<< *completed*
+    5: checkmate        <<< working on it
+        pawns
+        rooks
+        knights
+        bishops
+        queen        <<< *completed*
+        king
+    # // "6: stalemate"

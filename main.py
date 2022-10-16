@@ -80,6 +80,117 @@ print("\n")
 
 memory_board = copy.deepcopy(board_pieces)
 
+def checkmate_check():
+    safe_space_list = []
+
+    if turn["player_one"]:  # <<< player ones turn
+        player = "Player One"
+        opposing_player = "Player Two"
+        my_color = "White"
+        my_king = "-WK"
+        my_king_space = "A4-WK"
+        enemy_color = "Black"
+        enemy_piece_space = "G1-BP"
+        the_check = turn["player_one_check"]
+        the_good = "-W"
+        the_bad = "-B"
+        queen = "Q"
+        rook = "R"
+        bishop = "B"
+        knight = "N"
+        king = "K"
+        pawn = "P"
+        empty = "-__"
+    else:  # <<< player twos turn
+        player = "Player Two"
+        opposing_player = "Player One"
+        my_color = "Black"
+        my_king = "-BK"
+        my_king_space = "H5-BK"
+        enemy_color = "White"
+        enemy_piece_space = "B1-WP"
+        the_check = turn["player_two_check"]
+        the_good = "-B"
+        the_bad = "-W"
+        queen = "Q"
+        rook = "R"
+        bishop = "B"
+        knight = "N"
+        king = "K"
+        pawn = "P"
+        empty = "-__"
+    pass
+
+    # >>> looking at X for king
+    for i in list_alphabet:
+        if my_king_space[0] in list_alphabet:
+            if my_king_space[0] == i:
+                x2 = list_alphabet.index(i)
+
+    # >>> looking at Y for king
+    for i in list_numbers:
+        if my_king_space[1] in list_numbers:
+            if my_king_space[1] == i:
+                y2 = list_numbers.index(i)
+
+    # >>> adding all of the safe spaces to a list
+    for i in board_pieces:
+        for h in i:
+            x3 = board_pieces.index(i)
+            y3 = i.index(h)
+            valueX2 = abs(x2 - x3)
+            valueY2 = abs(y2 - y3)
+            if valueX2 == 1 and valueY2 == 1:
+                if empty in h or the_good in h:
+                    safe_space_list.append(h)
+            elif valueX2 == 1 and valueY2 == 0:
+                if empty in h or the_good in h:
+                    safe_space_list.append(h)
+            elif valueX2 == 0 and valueY2 == 1:
+                if empty in h or the_good in h:
+                    safe_space_list.append(h)
+
+    # >>> checking and removing any safe spaces that are under attack
+    for i in board_pieces:
+        for h in i:
+            x3 = board_pieces.index(i)
+            y3 = i.index(h)
+            if h.endswith(the_bad + queen): # <<< queen
+                for k in board_pieces:
+                    for l in k:
+                        x4 = board_pieces.index(k)
+                        y4 = k.index(l)
+                        valueX3 = abs(x3 - x4)
+                        valueY3 = abs(y3 - y4)
+                        if valueX3 == valueY3:
+                            if the_good in l:
+                                pass
+                            else:
+                                for g in safe_space_list:
+                                    if g == l:
+                                        safe_space_list.remove(g)
+                        if valueX3 == 0 and valueY3 != 0:
+                            if the_good in l:
+                                pass
+                            else:
+                                for g in safe_space_list:
+                                    if g == l:
+                                        safe_space_list.remove(g)
+                        if valueX3 != 0 and valueY3 == 0:
+                            if the_good in l:
+                                pass
+                            else:
+                                for g in safe_space_list:
+                                    if g == l:
+                                        safe_space_list.remove(g)
+
+    if not safe_space_list:  # <<< checks if the safe_space_list is empty
+        print(f"The {my_color} King is in Checkmate!")
+        print(f"{opposing_player} wins!")
+        print("Player 1's score:", score["player_one"])
+        print("Player 2's score:", score["player_two"])
+        print("The game took,", turn["count"], "turns")
+        print("Thanks for playing!")
 
 def check_check():
     empty_space = "-__"
@@ -689,6 +800,7 @@ def check_check():
                                         print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
+    checkmate_check()
 
 
 def player_two_cpu_turn():
