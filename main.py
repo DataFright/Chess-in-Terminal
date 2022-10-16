@@ -315,7 +315,18 @@ def check_check():
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                 elif "BK" in h:
-                    pass
+                    if absolute_amount_x == 1 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
+                    elif absolute_amount_x == 1 and absolute_amount_y == 0:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
+                    elif absolute_amount_x == 0 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
                 elif "BR" in h:
                     if amount_x == 0:  # straight horizontal move
                         # print("Rook on same row as king")
@@ -395,18 +406,6 @@ def check_check():
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_one_check"] = True
                                         # print("the that, minus")
-
-        pass
-        # for loop to find my king          # <<< complete
-        # for loop to find enemy pieces     # <<< complete
-        # jumping                           # <<< complete
-        # pawn                              # <<< complete
-        # queen                             # <<< complete
-        # rook                              # <<< complete
-        # bishop                            # <<< complete
-        # knight                            # <<< complete
-        # king
-
     else:  # <<< player twos turn
         my_color = "Black"
         my_king = "-BK"
@@ -619,7 +618,18 @@ def check_check():
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
                 elif "WK" in h:
-                    pass
+                    if absolute_amount_x == 1 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
+                    elif absolute_amount_x == 1 and absolute_amount_y == 0:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
+                    elif absolute_amount_x == 0 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} King on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
                 elif "WR" in h:
                     if amount_x == 0:  # straight horizontal move
                         if y < y2:  # positive y
@@ -679,7 +689,7 @@ def check_check():
                                         print(f"The {enemy_color} Rook on {h[0:2]} puts the {my_color} King on "
                                               f"{my_king_space[0:2]} in Check")
                                         turn["player_two_check"] = True
-        pass
+
 
 
 def player_two_cpu_turn():
