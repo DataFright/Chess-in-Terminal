@@ -138,7 +138,14 @@ def check_check():
                 if "BP" in h:
                     pass
                 elif "BN" in h:
-                    pass
+                    if absolute_amount_x == 1 and absolute_amount_y == 2:
+                        print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
+                    elif absolute_amount_x == 2 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_one_check"] = True
                 elif "BB" in h:
                     if absolute_amount_x == absolute_amount_y:  # diagonal move
                         if y < y2 and x < x2:  # top left
@@ -445,7 +452,14 @@ def check_check():
                 if "WP" in h:
                     pass
                 elif "WN" in h:
-                    pass
+                    if absolute_amount_x == 1 and absolute_amount_y == 2:
+                        print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
+                    elif absolute_amount_x == 2 and absolute_amount_y == 1:
+                        print(f"The {enemy_color} Knight on {h[0:2]} puts the {my_color} King on "
+                              f"{my_king_space[0:2]} in Check")
+                        turn["player_two_check"] = True
                 elif "WB" in h:
                     if absolute_amount_x == absolute_amount_y:  # diagonal move
                         if y < y2 and x < x2:  # top left
