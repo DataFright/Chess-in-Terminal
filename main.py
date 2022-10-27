@@ -133,6 +133,8 @@ def checkmate_check():
             if my_king_space[1] == i:
                 y2 = list_numbers.index(i)
 
+    my_king = board_pieces[x2][y2]
+
     # >>> adding all of the safe spaces to a list
     for i in board_pieces:
         for h in i:
@@ -151,38 +153,299 @@ def checkmate_check():
                     safe_space_list.append(h)
 
     # >>> checking and removing any safe spaces that are under attack
+    list_horizontal = []
+    list_vertical = []
+    list_diagonal = []
+
     for i in board_pieces:
         for h in i:
             x3 = board_pieces.index(i)
             y3 = i.index(h)
-            if h.endswith(the_bad + queen): # <<< queen
-                for k in board_pieces:
-                    for l in k:
-                        x4 = board_pieces.index(k)
-                        y4 = k.index(l)
-                        valueX3 = abs(x3 - x4)
-                        valueY3 = abs(y3 - y4)
-                        if valueX3 == valueY3:
-                            if the_good in l:
-                                pass
-                            else:
-                                for g in safe_space_list:
-                                    if g == l:
-                                        safe_space_list.remove(g)
-                        if valueX3 == 0 and valueY3 != 0:
-                            if the_good in l:
-                                pass
-                            else:
-                                for g in safe_space_list:
-                                    if g == l:
-                                        safe_space_list.remove(g)
-                        if valueX3 != 0 and valueY3 == 0:
-                            if the_good in l:
-                                pass
-                            else:
-                                for g in safe_space_list:
-                                    if g == l:
-                                        safe_space_list.remove(g)
+            if h.endswith(the_bad + queen):     # <<< queen checkmate check
+                check_x_direction = x2 - x3
+                check_y_direction = y2 - y3
+                if check_x_direction >= 0 and check_y_direction >= 0:
+                    print(check_x_direction, check_y_direction)
+                    # print("positive")
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        # print("my king here in horizontal")
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p - 1]:
+                                # print("my king blocker")
+                                safe_space_list.append(list_horizontal[p + 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p - 1]:
+                                safe_space_list.append(list_vertical[p + 1])
+                    elif my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) - 1]:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction <= 0 and check_y_direction <= 0:
+                    # print("negative")
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p + 1]:
+                                safe_space_list.append(list_horizontal[p - 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p + 1]:
+                                safe_space_list.append(list_vertical[p - 1])
+                    elif my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                dupe_bool = True
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) + 1]:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction >= 0 and check_y_direction <= 0:
+                    # print("positive, negative")
+                    print(check_x_direction, check_y_direction)
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        # print("my king here in horizontal")
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p - 1]:
+                                # print("my king blocker")
+                                safe_space_list.append(list_horizontal[p + 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p - 1]:
+                                safe_space_list.append(list_vertical[p + 1])
+                    elif my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 2)
+                                    final_holder = list_diagonal[final_holder]
+                                if dupe_bool:
+                                    if my_king in list_diagonal[list_diagonal.index(q) - 1]:
+                                        final_holder = (list_diagonal.index(q) + 1)
+                                        final_holder = list_diagonal[final_holder]
+                                if q == list_diagonal[-2]:
+                                    break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction <= 0 and check_y_direction >= 0:
+                    # print("negative, positive")
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        # print("my king here in horizontal")
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p + 1]:
+                                # print("my king blocker")
+                                safe_space_list.append(list_horizontal[p - 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p + 1]:
+                                safe_space_list.append(list_vertical[p - 1])
+                    elif my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) + 1]:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
 
     if not safe_space_list:  # <<< checks if the safe_space_list is empty
         print(f"The {my_color} King is in Checkmate!")
