@@ -446,6 +446,133 @@ def checkmate_check():
                             if q == list_diagonal[-2]:
                                 break
                         safe_space_list.append(final_holder)
+            elif h.endswith(the_bad + rook):
+                check_x_direction = x2 - x3
+                check_y_direction = y2 - y3
+                if check_x_direction == 0 and check_y_direction > 0:  # check right
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p - 1]:
+                                safe_space_list.append(list_horizontal[p + 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p - 1]:
+                                safe_space_list.append(list_vertical[p + 1])
+                elif check_x_direction == 0 and check_y_direction < 0:  # check left
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p + 1]:
+                                safe_space_list.append(list_horizontal[p - 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p - 1]:
+                                safe_space_list.append(list_vertical[p + 1])
+                elif check_x_direction > 0 and check_y_direction == 0:  # check down
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p - 1]:
+                                safe_space_list.append(list_horizontal[p + 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p - 1]:
+                                safe_space_list.append(list_vertical[p + 1])
+                elif check_x_direction < 0 and check_y_direction == 0:  # check up
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == 0 and valueY5 != 0:
+                                list_horizontal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                            if valueX5 != 0 and valueY5 == 0:
+                                list_vertical.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_horizontal:
+                        for p in range(len(list_horizontal)):
+                            if list_horizontal[p] == my_king and the_good in list_horizontal[p + 1]:
+                                safe_space_list.append(list_horizontal[p - 1])
+                    elif my_king in list_vertical:
+                        for p in range(len(list_vertical)):
+                            if list_vertical[p] == my_king and the_good in list_vertical[p + 1]:
+                                safe_space_list.append(list_vertical[p - 1])
 
     if not safe_space_list:  # <<< checks if the safe_space_list is empty
         print(f"The {my_color} King is in Checkmate!")
