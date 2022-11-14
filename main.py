@@ -573,6 +573,184 @@ def checkmate_check():
                         for p in range(len(list_vertical)):
                             if list_vertical[p] == my_king and the_good in list_vertical[p + 1]:
                                 safe_space_list.append(list_vertical[p - 1])
+            elif h.endswith(the_bad + bishop):
+                check_x_direction = x2 - x3
+                check_y_direction = y2 - y3
+                if check_x_direction >= 0 and check_y_direction >= 0:
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) - 1]:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction <= 0 and check_y_direction <= 0:
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                dupe_bool = True
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) + 1]:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction >= 0 and check_y_direction <= 0:
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) + 2)
+                                    final_holder = list_diagonal[final_holder]
+                                if dupe_bool:
+                                    if my_king in list_diagonal[list_diagonal.index(q) - 1]:
+                                        final_holder = (list_diagonal.index(q) + 1)
+                                        final_holder = list_diagonal[final_holder]
+                                if q == list_diagonal[-2]:
+                                    break
+                        safe_space_list.append(final_holder)
+                elif check_x_direction <= 0 and check_y_direction >= 0:
+                    for k in board_pieces:
+                        for l in k:
+                            x4 = board_pieces.index(k)
+                            y4 = k.index(l)
+                            valueX5 = abs(x3 - x4)
+                            valueY5 = abs(y3 - y4)
+                            if valueX5 == valueY5:
+                                list_diagonal.append(l)
+                                if the_good in l:
+                                    pass
+                                else:
+                                    for g in safe_space_list:
+                                        if g == l:
+                                            safe_space_list.remove(g)
+                    if my_king in list_diagonal:
+                        place_holder = ""
+                        list_holder = "x"
+                        final_holder = ""
+                        dupe_bool = False
+                        for q in list_diagonal:
+                            if place_holder != q[0]:
+                                dupe_bool = False
+                            if not dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            place_holder = q[0]
+                            if place_holder == list_holder[0]:
+                                # print("Duplicate found")
+                                dupe_bool = True
+                                # print(q)
+                            list_holder = q
+                            if dupe_bool:
+                                if my_king in q:
+                                    final_holder = (list_diagonal.index(q) - 2)
+                                    final_holder = list_diagonal[final_holder]
+                            if dupe_bool:
+                                if my_king in list_diagonal[list_diagonal.index(q) + 1]:
+                                    final_holder = (list_diagonal.index(q) - 1)
+                                    final_holder = list_diagonal[final_holder]
+                            if q == list_diagonal[-2]:
+                                break
+                        safe_space_list.append(final_holder)
+
 
     if not safe_space_list:  # <<< checks if the safe_space_list is empty
         print(f"The {my_color} King is in Checkmate!")

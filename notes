@@ -32,7 +32,7 @@ need to add...
         pawns
         rooks        <<< *completed*
         knights
-        bishops
+        bishops      <<< *completed*
         queen        <<< *completed*
         king
     # // "6: stalemate"
