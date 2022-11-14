@@ -750,6 +750,27 @@ def checkmate_check():
                             if q == list_diagonal[-2]:
                                 break
                         safe_space_list.append(final_holder)
+            elif h.endswith(the_bad + knight):
+                for k in board_pieces:
+                    for l in k:
+                        x4 = board_pieces.index(k)
+                        y4 = k.index(l)
+                        valueX5 = abs(x3 - x4)
+                        valueY5 = abs(y3 - y4)
+                        if valueX5 == 1 and valueY5 == 2:
+                            if the_good in l:
+                                pass
+                            else:
+                                for g in safe_space_list:
+                                    if g == l:
+                                        safe_space_list.remove(g)
+                        if valueX5 == 2 and valueY5 == 1:
+                            if the_good in l:
+                                pass
+                            else:
+                                for g in safe_space_list:
+                                    if g == l:
+                                        safe_space_list.remove(g)
 
 
     if not safe_space_list:  # <<< checks if the safe_space_list is empty
