@@ -29,10 +29,10 @@ need to add...
         queen        <<< *completed*
         king         <<< *completed*
     5: checkmate        <<< working on it
-        pawns
+        pawns        <<< *completed*
         rooks        <<< *completed*
         knights      <<< *completed*
         bishops      <<< *completed*
         queen        <<< *completed*
-        king
+        king         <<< *completed*
     # // "6: stalemate"
